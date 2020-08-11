@@ -5,7 +5,9 @@ import android.content.Context
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.widget.AppCompatEditText
+import androidx.databinding.BindingAdapter
 import androidx.fragment.app.Fragment
+import com.facebook.drawee.view.SimpleDraweeView
 
 
 fun Fragment.hideKeyboard() {
@@ -27,4 +29,11 @@ fun AppCompatEditText.clearInputText(){
 
 fun Double.weatherValue(): String{
     return this.toInt().toString()
+}
+
+@BindingAdapter("imageUrl")
+fun setImageUrl(view: SimpleDraweeView, iconName: String?) {
+    iconName?.let {
+        view.setImageURI("https://openweathermap.org/img/wn/$iconName@2x.png")
+    }
 }

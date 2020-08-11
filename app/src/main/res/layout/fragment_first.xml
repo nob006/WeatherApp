@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <import type="com.violet.openweather.common.UnitFormat" />
+
+        <import type="android.view.View" />
 
         <import
             alias="ExtensionFunction"
@@ -14,56 +18,93 @@
             type="com.violet.openweather.viewmodel.WeatherViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_margin="@dimen/padding_8"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/padding_20">
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/edtSearch"
-            android:hint="@string/hint_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:hint="@string/hint_search"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.appcompat.widget.AppCompatImageView
+        <androidx.constraintlayout.widget.Group
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="@{viewModel.weatherRes != null ? View.VISIBLE : View.GONE}"
+            app:constraint_referenced_ids="cbGroup,imgIcon,tvHumidity,tvTemperature,tvTemperatureTitle,tvHumidityTitle" />
+
+        <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/imgIcon"
+            android:background="@color/colorUnSelect"
             android:layout_width="100dp"
             android:layout_height="100dp"
+            app:imageUrl="@{viewModel.weatherRes.weather[0].icon}"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edtSearch" />
+            app:layout_constraintTop_toTopOf="@+id/tvTemperature"
+            app:layout_constraintBottom_toBottomOf="@+id/tvTemperature"/>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvTemperature"
-            android:layout_marginTop="@dimen/padding_8"
+            style="@style/TextViewStyle"
+            android:textColor="@color/colorSelect"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
             android:gravity="top"
             android:text="@{ExtensionFunction.weatherValue(viewModel.weatherRes.main.temp)}"
             android:textSize="@dimen/text_size_xlarge"
             app:layout_constraintEnd_toStartOf="@+id/cbGroup"
             app:layout_constraintStart_toEndOf="@+id/imgIcon"
             app:layout_constraintTop_toBottomOf="@+id/edtSearch"
-            tools:text="SSS" />
+            tools:text="50" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvTemperatureTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/padding_5"
+            android:gravity="right"
+            android:text="@string/title_temperature"
+            android:textSize="@dimen/text_size_small"
+            app:layout_constraintBaseline_toBaselineOf="@+id/tvTemperature"
+            app:layout_constraintBottom_toBottomOf="@+id/tvTemperature"
+            app:layout_constraintStart_toEndOf="@+id/tvTemperature" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvHumidity"
-            android:layout_width="wrap_content"
+            style="@style/TextViewStyle"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/padding_20"
+            android:gravity="right|bottom"
             android:text="@{String.valueOf(viewModel.weatherRes.main.humidity)}"
-            android:textSize="@dimen/text_size_xlarge"
+            android:textSize="@dimen/text_size_large"
             app:layout_constraintEnd_toEndOf="@+id/tvTemperature"
             app:layout_constraintStart_toStartOf="@+id/tvTemperature"
             app:layout_constraintTop_toBottomOf="@+id/tvTemperature"
-            tools:text="SSSSS" />
+            tools:text="70" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvHumidityTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:text="@string/title_humidity"
+            android:textSize="@dimen/text_size_small"
+            app:layout_constraintBaseline_toBaselineOf="@+id/tvHumidity"
+            app:layout_constraintBottom_toBottomOf="@+id/tvHumidity"
+            app:layout_constraintStart_toEndOf="@+id/tvHumidity" />
 
         <RadioGroup
             android:id="@+id/cbGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_20"
             android:checkedButton="@id/cbCelsius"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
