@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">OpenWeather</string>
+    
+    //Unit Type
+    <string name="unit_type_celsius">C°</string>
+    <string name="unit_type_fahrenheit">F°</string> //FAHRENHEIT
+
+    //Error message
+    <string name="error_message_city_validate">Please input city</string>
+    <string name="error_message_city_not_found">You city not found</string>
+
+
+    <!-- Search Screen -->
+    <string name="hint_search">Input you city</string>
 </resources>

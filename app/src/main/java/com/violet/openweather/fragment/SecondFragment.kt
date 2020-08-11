@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.violet.openweather.R
 
-class SecondFragment: Fragment() {
+class SecondFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
