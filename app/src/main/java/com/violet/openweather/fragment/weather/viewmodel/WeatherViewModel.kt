@@ -1,4 +1,4 @@
-package com.violet.openweather.viewmodel
+package com.violet.openweather.fragment.weather.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -6,12 +6,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.violet.openweather.R
 import com.violet.openweather.common.UnitFormat
-import com.violet.openweather.model.WeatherRes
+import com.violet.openweather.model.weather.WeatherRes
 import com.violet.openweather.repositoty.WeatherRepository
 import kotlinx.coroutines.launch
 
 class WeatherViewModel(
-    private val weatherRepository: WeatherRepository
+        private val weatherRepository: WeatherRepository
 ) : ViewModel() {
     private var unitFormat = UnitFormat.CELSIUS
     private var city = ""

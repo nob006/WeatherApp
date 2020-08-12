@@ -1,4 +1,4 @@
-package com.violet.openweather.model
+package com.violet.openweather.model.weather
 
 data class Wind(
     val deg: Int,

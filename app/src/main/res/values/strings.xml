@@ -13,4 +13,8 @@
     <string name="hint_search">Input you city</string>
     <string name="title_temperature">Temperature</string>
     <string name="title_humidity">Humidity</string>
+
+    <!-- Whole day item -->
+    <string name="item_temp">Temp : %s</string>
+    <string name="something_wrong">Something when wrong</string>
 </resources>

@@ -7,16 +7,24 @@
 
     <fragment
         android:id="@+id/firstFragment"
-        tools:layout="@layout/fragment_first"
-        android:name="com.violet.openweather.fragment.FirstFragment"
-        android:label="FirstFragment" >
+        android:name="com.violet.openweather.fragment.weather.WeatherFragment"
+        android:label="FirstFragment"
+        tools:layout="@layout/fragment_weather">
         <action
-            android:id="@+id/action_firstFragment_to_secondFragment"
-            app:destination="@id/secondFragment" />
+            android:id="@+id/action_weatherFragment_to_wholedayFragment"
+            app:destination="@id/secondFragment">
+            <argument
+                android:name="lat"
+                app:argType="string" />
+            <argument
+                android:name="lon"
+                app:argType="string" />
+        </action>
     </fragment>
     <fragment
         android:id="@+id/secondFragment"
-        tools:layout="@layout/fragment_second"
-        android:name="com.violet.openweather.fragment.SecondFragment"
-        android:label="SecondFragment" />
+        android:name="com.violet.openweather.fragment.wholeday.WholeDayFragment"
+        android:label="SecondFragment"
+        tools:layout="@layout/fragment_whole_day">
+    </fragment>
 </navigation>

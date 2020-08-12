@@ -1,4 +1,4 @@
-package com.violet.openweather.fragment
+package com.violet.openweather.fragment.weather
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,15 +12,15 @@ import com.google.android.material.snackbar.Snackbar
 import com.jakewharton.rxbinding4.view.clicks
 import com.jakewharton.rxbinding4.widget.textChangeEvents
 import com.violet.openweather.R
-import com.violet.openweather.databinding.FragmentFirstBinding
+import com.violet.openweather.databinding.FragmentWeatherBinding
 import com.violet.openweather.extension.clearInputText
 import com.violet.openweather.extension.hideKeyboard
-import com.violet.openweather.viewmodel.WeatherViewModel
-import kotlinx.android.synthetic.main.fragment_first.*
+import com.violet.openweather.fragment.weather.viewmodel.WeatherViewModel
+import kotlinx.android.synthetic.main.fragment_weather.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.concurrent.TimeUnit
 
-class FirstFragment : Fragment() {
+class WeatherFragment : Fragment() {
 
     companion object {
         private const val TIME_DELAY = 1500L
@@ -29,15 +29,15 @@ class FirstFragment : Fragment() {
     private val weatherViewModel: WeatherViewModel by viewModel()
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
-        val view = DataBindingUtil.inflate<FragmentFirstBinding>(
-            inflater,
-            R.layout.fragment_first,
-            container,
-            false
+        val view = DataBindingUtil.inflate<FragmentWeatherBinding>(
+                inflater,
+                R.layout.fragment_weather,
+                container,
+                false
         )
         view.viewModel = weatherViewModel
         view.lifecycleOwner = this
@@ -53,26 +53,28 @@ class FirstFragment : Fragment() {
 
     private fun handleListener() {
         edtSearch.textChangeEvents()
-            .debounce(TIME_DELAY, TimeUnit.MILLISECONDS)
-            .filter {
-                it.text.isNotEmpty()
-            }
-            .subscribe {
-                hideKeyboard()
-                val search = edtSearch.text.toString().trim()
-                edtSearch.clearInputText()
-                if (search.isNotEmpty()) {
-                    weatherViewModel.getWeatherByCity(search)
-                } else {
-                    showMessage(R.string.error_message_city_validate)
+                .debounce(TIME_DELAY, TimeUnit.MILLISECONDS)
+                .filter {
+                    it.text.isNotEmpty()
                 }
-            }
+                .subscribe {
+                    hideKeyboard()
+                    val search = edtSearch.text.toString().trim()
+                    edtSearch.clearInputText()
+                    if (search.isNotEmpty()) {
+                        weatherViewModel.getWeatherByCity(search)
+                    } else {
+                        showMessage(R.string.error_message_city_validate)
+                    }
+                }
 
         btnMoreDetail.clicks()
-            .debounce(200, TimeUnit.MILLISECONDS)
-            .subscribe {
-                findNavController().navigate(R.id.secondFragment)
-            }
+                .debounce(200, TimeUnit.MILLISECONDS)
+                .subscribe {
+                    weatherViewModel.weatherRes.value?.coord?.let {
+                        findNavController().navigate(WeatherFragmentDirections.actionWeatherFragmentToWholedayFragment(it.lat.toString(), it.lon.toString()))
+                    }
+                }
     }
 
     private fun initObserve() {

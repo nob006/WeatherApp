@@ -6,8 +6,8 @@ import com.violet.openweather.network.WeatherService
 
 class WeatherRepository(private val weatherService: WeatherService) {
     suspend fun getWeatherByCity(city: String, unitFormat: UnitFormat) =
-        weatherService.getWeatherByCity(city, Constant.API_KEY, unitFormat.format)
+            weatherService.getWeatherByCity(city, Constant.API_KEY, unitFormat.format)
 
     suspend fun getWeatherWholeDay(lat: String, lon: String) =
-        weatherService.getWeatherWholelDay(lat, lon, Constant.API_KEY, UnitFormat.CELSIUS.format)
+            weatherService.getWeatherWholeDay(lat, lon, Constant.API_KEY, UnitFormat.CELSIUS.format)
 }

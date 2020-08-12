@@ -8,6 +8,7 @@ import androidx.appcompat.widget.AppCompatEditText
 import androidx.databinding.BindingAdapter
 import androidx.fragment.app.Fragment
 import com.facebook.drawee.view.SimpleDraweeView
+import com.violet.openweather.utils.Utils
 
 
 fun Fragment.hideKeyboard() {
@@ -23,12 +24,16 @@ fun Context.hideKeyboard(view: View) {
     inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
 }
 
-fun AppCompatEditText.clearInputText(){
+fun AppCompatEditText.clearInputText() {
     setText("")
 }
 
-fun Double.weatherValue(): String{
+fun Double.weatherValue(): String {
     return this.toInt().toString()
+}
+
+fun Long.getDateTime(): String {
+    return Utils().getDateTime(this)
 }
 
 @BindingAdapter("imageUrl")

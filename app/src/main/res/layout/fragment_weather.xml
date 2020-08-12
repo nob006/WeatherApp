@@ -15,7 +15,7 @@
 
         <variable
             name="viewModel"
-            type="com.violet.openweather.viewmodel.WeatherViewModel" />
+            type="com.violet.openweather.fragment.weather.viewmodel.WeatherViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
