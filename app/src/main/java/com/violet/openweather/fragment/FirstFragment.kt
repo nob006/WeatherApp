@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
+import com.jakewharton.rxbinding4.view.clicks
 import com.jakewharton.rxbinding4.widget.textChangeEvents
 import com.violet.openweather.R
 import com.violet.openweather.databinding.FragmentFirstBinding
@@ -65,6 +67,12 @@ class FirstFragment : Fragment() {
                     showMessage(R.string.error_message_city_validate)
                 }
             }
+
+        btnMoreDetail.clicks()
+            .debounce(200, TimeUnit.MILLISECONDS)
+            .subscribe {
+                findNavController().navigate(R.id.secondFragment)
+            }
     }
 
     private fun initObserve() {
@@ -74,7 +82,6 @@ class FirstFragment : Fragment() {
     }
 
     private fun showMessage(messageId: Int) {
-        Snackbar.make(edtSearch, getText(messageId), Snackbar.LENGTH_SHORT)
-            .show()
+        Snackbar.make(edtSearch, getText(messageId), Snackbar.LENGTH_SHORT).show()
     }
 }
